@@ -133,6 +133,18 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    @Override
+    public void changeAvatar(Integer uid, String username, String avatar) {
+        User res = userMapper.findByUid(uid);
+        if(res == null || res.getIsDelete() == 1){
+            throw new UsernameNotFoundException("用户数据不存在");
+        }
+        int rows = userMapper.updateAvatarByUid(uid, avatar, username, new Date());
+        if(rows != 1){
+            throw new UpdateException("更新时产生未知的异常");
+        }
+    }
+
     /**
      * @author LiXianLei
      * @describtion 加密算法

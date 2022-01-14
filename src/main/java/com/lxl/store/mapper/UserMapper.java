@@ -54,4 +54,16 @@ public interface UserMapper {
      * @time 2022/1/14 16:23
      **/
     Integer updateInfoByUid(User user);
+
+    /**
+     * @author LiXianLei
+     * @describtion 对数据库中头像字段进行更新
+     * @return {@link Integer} 影响的行数
+     * @param uid 用户id
+     * @param avatar 头像路径
+     * @param modifiedUser 修改人
+     * @param modifiedTime 修改时间
+     * @time 2022/1/15 0:33
+     **/
+    Integer updateAvatarByUid(Integer uid, String avatar, String modifiedUser, Date modifiedTime);
 }

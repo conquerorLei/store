@@ -51,4 +51,14 @@ public interface IUserService {
      * @time 2022/1/14 16:02
      **/
     void changeInfo(Integer uid, String username, User user);
+
+    /**
+     * @author LiXianLei
+     * @describtion 头像修改
+     * @param uid 用户编号
+     * @param username 用户名称
+     * @param avatar 用户头像
+     * @time 2022/1/15 0:51
+     **/
+    void changeAvatar(Integer uid, String username, String avatar);
 }

@@ -50,4 +50,9 @@ public class UserServiceTests {
         User user = userService.getByUid(6);
         System.out.println(user);
     }
+
+    @Test
+    public void changeAvatar(){
+        userService.changeAvatar(6,"业务测试", "/upload/test01.png");
+    }
 }
