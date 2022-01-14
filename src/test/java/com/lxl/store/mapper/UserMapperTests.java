@@ -51,4 +51,12 @@ public class UserMapperTests {
         User user = userMapper.findByUid(1);
         System.out.println(user);
     }
+    @Test
+    public void updateInfoByUid(){
+        User user = userMapper.findByUid(6);
+        user.setModifiedUser("测试用户1");
+        user.setModifiedTime(new Date());
+        int rows = userMapper.updateInfoByUid(user);
+        System.out.println(rows);
+    }
 }

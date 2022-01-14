@@ -55,4 +55,14 @@
     <select id="findByUid" resultMap="UserEntityMap">
         select * from t_user where uid = #{uid}
     </select>
+    <update id="updateInfoByUid" parameterType="com.lxl.store.entity.User">
+        update t_user
+        set
+        <if test="phone != null">phone = #{phone},</if>
+        <if test="email != null">email = #{email},</if>
+        <if test="gender != null">gender = #{gender},</if>
+            modified_user = #{modifiedUser},
+            modified_time = #{modifiedTime}
+        where uid = #{uid}
+    </update>
 </mapper>

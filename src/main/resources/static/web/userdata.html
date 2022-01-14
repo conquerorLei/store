@@ -262,6 +262,50 @@
 			</div>
 		</footer>
 		<!--页脚结束-->
+		<script type="text/javascript">
+			// 页面渲染时对某一部分的数据进行加载
+			$(document).ready(function(){
+				$.ajax({
+					url: "/users/get_info",
+					type: "POST",
+					dataType: "JSON",
+					success: function(json){
+						console.log(json);
+						if(json.state == 200){
+							$("#username").val(json.data.username);
+							$("#phone").val(json.data.phone);
+							$("#email").val(json.data.email);
+							let radio = json.data.gender == 0 ? $("#gender-female") : $("#gender-male");
+							radio.prop("checked","checked");
+						}else{
+							alert(json.message);
+						}
+					},
+					error: function(xhr){
+						alert("发生未知错误" + xhr.status);
+					}
+				});
+			});
+			// 点击后对数据库进行修改
+			$("#btn-change-info").click(function(){
+				$.ajax({
+					url: "/users/change_info",
+					type: "POST",
+					data: $("#form-change-info").serialize(),
+					dateType: "JSON",
+					success: function(json){
+						if(json.state == 200){
+							alert("修改成功");
+							location.href = "userdata.html";
+						}else{
+							alert(json.message);
+						}
+					},
+					error: function(xhr){
+						alert("发生未知错误" + xhr.status);
+					}
+				});
+			});
+		</script>
 	</body>
-
 </html>

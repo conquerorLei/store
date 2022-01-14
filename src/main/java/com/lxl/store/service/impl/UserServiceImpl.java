@@ -103,6 +103,36 @@ public class UserServiceImpl implements IUserService {
             throw new UpdateException("更新时产生未知的异常");
         }
     }
+
+    @Override
+    public User getByUid(Integer uid) {
+        User res = userMapper.findByUid(uid);
+        if(res == null || res.getIsDelete() == 1){
+            throw new UsernameNotFoundException("用户数据不存在");
+        }
+        User user = new User();
+        user.setUsername(res.getUsername());
+        user.setPhone(res.getPhone());
+        user.setEmail(res.getEmail());
+        user.setGender(res.getGender());
+        return user;
+    }
+
+    @Override
+    public void changeInfo(Integer uid, String username, User user) {
+        User res = userMapper.findByUid(uid);
+        if(res == null || res.getIsDelete() == 1){
+            throw new UsernameNotFoundException("用户数据不存在");
+        }
+        user.setUid(uid);
+        user.setModifiedUser(username);
+        user.setModifiedTime(new Date());
+        int rows = userMapper.updateInfoByUid(user);
+        if(rows != 1){
+            throw new UpdateException("更新时产生未知的异常");
+        }
+    }
+
     /**
      * @author LiXianLei
      * @describtion 加密算法

@@ -45,4 +45,13 @@ public interface UserMapper {
      * @time 2022/1/13 21:08
      **/
     User findByUid(Integer uid);
+
+    /**
+     * @author LiXianLei
+     * @describtion 修改用户数据
+     * @return {@link Integer} 影响的行数
+     * @param user 需要进行修改的用户数据进行封装
+     * @time 2022/1/14 16:23
+     **/
+    Integer updateInfoByUid(User user);
 }

@@ -31,4 +31,24 @@ public interface IUserService {
      * @time 2022/1/14 11:21
      **/
     void changePassword(Integer uid, String username, String oldPassword, String newPassword);
+
+    /**
+     * @author LiXianLei
+     * @describtion 根据用户id返回用户信息
+     * @return {@link User} 返回用户
+     * @param uid 用户编号
+     * @time 2022/1/14 15:59
+     **/
+    User getByUid(Integer uid);
+
+    /**
+     * @author LiXianLei
+     * @describtion 更新数据
+     * @return 不需要返回数据
+     * @param uid 用户id
+     * @param username 用户名(填写修改用户的字段)
+     * @param user 包含修改字段的user对象
+     * @time 2022/1/14 16:02
+     **/
+    void changeInfo(Integer uid, String username, User user);
 }
