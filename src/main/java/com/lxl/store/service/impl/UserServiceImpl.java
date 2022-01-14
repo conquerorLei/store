@@ -3,7 +3,7 @@ package com.lxl.store.service.impl;
 import com.lxl.store.entity.User;
 import com.lxl.store.mapper.UserMapper;
 import com.lxl.store.service.IUserService;
-import com.lxl.store.service.exception.*;
+import com.lxl.store.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;

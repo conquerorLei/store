@@ -1,4 +1,4 @@
-package com.lxl.store.service.exception;
+package com.lxl.store.exception;
 
 /**
  * @author LiXianLei

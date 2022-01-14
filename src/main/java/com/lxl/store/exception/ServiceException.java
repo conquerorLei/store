@@ -1,4 +1,4 @@
-package com.lxl.store.service.exception;
+package com.lxl.store.exception;
 
 /**
  * 业务层异常的基类：throws new ServiceException("业务层产生的未知的异常")

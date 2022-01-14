@@ -1,8 +1,8 @@
 package com.lxl.store.service;
 
 import com.lxl.store.entity.User;
-import com.lxl.store.service.exception.InsertException;
-import com.lxl.store.service.exception.UsernameDuplicatedException;
+import com.lxl.store.exception.InsertException;
+import com.lxl.store.exception.UsernameDuplicatedException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
