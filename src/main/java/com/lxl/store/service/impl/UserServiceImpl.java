@@ -3,10 +3,7 @@ package com.lxl.store.service.impl;
 import com.lxl.store.entity.User;
 import com.lxl.store.mapper.UserMapper;
 import com.lxl.store.service.IUserService;
-import com.lxl.store.service.exception.InsertException;
-import com.lxl.store.service.exception.PasswordNotMatchException;
-import com.lxl.store.service.exception.UsernameDuplicatedException;
-import com.lxl.store.service.exception.UsernameNotFoundException;
+import com.lxl.store.service.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -60,20 +57,6 @@ public class UserServiceImpl implements IUserService {
         }
         System.out.println("OK");
     }
-    /**
-     * @author LiXianLei
-     * @describtion 加密算法
-     * @return {@link String}
-     * @param password
-     * @param salt
-     * @time 2022/1/13 18:24
-     **/
-    private String getMD5Password(String password, String salt){
-        for(int i = 0; i < 3; i++) {
-            password = DigestUtils.md5DigestAsHex((salt + password + salt).getBytes()).toUpperCase();
-        }
-        return password;
-    }
 
     @Override
     public User login(String username, String password) {
@@ -101,5 +84,37 @@ public class UserServiceImpl implements IUserService {
         user.setAvatar(res.getAvatar());
         // 为了辅助其他页面做数据展示使用
         return user;
+    }
+
+    @Override
+    public void changePassword(Integer uid, String username, String oldPassword, String newPassword) {
+        User user = userMapper.findByUid(uid);
+        if(user == null || user.getIsDelete() == 1){
+            throw new UsernameNotFoundException("用户不存在");
+        }
+        String salt = user.getSalt();
+        String oldMD5Password = getMD5Password(oldPassword, salt);
+        if(!oldMD5Password.equals(user.getPassword())){
+            throw new PasswordNotMatchException("原密码错误");
+        }
+        String newMD5Password = getMD5Password(newPassword, salt);
+        int rows = userMapper.updatePasswordByUid(uid, newMD5Password,username, new Date());
+        if(rows != 1){
+            throw new UpdateException("更新时产生未知的异常");
+        }
+    }
+    /**
+     * @author LiXianLei
+     * @describtion 加密算法
+     * @return {@link String}
+     * @param password
+     * @param salt
+     * @time 2022/1/13 18:24
+     **/
+    private String getMD5Password(String password, String salt){
+        for(int i = 0; i < 3; i++) {
+            password = DigestUtils.md5DigestAsHex((salt + password + salt).getBytes()).toUpperCase();
+        }
+        return password;
     }
 }

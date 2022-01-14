@@ -41,7 +41,6 @@ public class UserMapperTests {
     @Test
     public void updatePassword(){
         String password = "123456";
-//        Integer rows = userMapper.updatePassword(username, password);
         Date date = new Date();
         Integer rows = userMapper.updatePasswordByUid(1, password, "管理员", date);
         if(rows == 1) System.out.println("密码已经修改");
