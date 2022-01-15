@@ -22,7 +22,7 @@ public class BaseController {
      * @return {@link null}
      * @time 2022/1/12 22:17
      **/
-    @ExceptionHandler(ServiceException.class) // 用于统一处理抛出的异常
+    @ExceptionHandler({ServiceException.class, FileUploadException.class}) // 用于统一处理抛出的异常
     public JsonResult<Void> handleException(Throwable e){
         JsonResult<Void> result = new JsonResult<>(e);
         if(e instanceof UsernameDuplicatedException){
@@ -39,6 +39,14 @@ public class BaseController {
 //            result.setMessage("用户名的密码错误的异常");
         } else if(e instanceof UpdateException){
             result.setState(5003);
+        } else if(e instanceof FileEmptyException){
+            result.setState(6000);
+        } else if(e instanceof FileOverSizedException){
+            result.setState(6001);
+        } else if(e instanceof FileTypeException){
+            result.setState(6002);
+        } else if(e instanceof FileUploadIOException){
+            result.setState(6003);
         }
         result.setMessage(e.getMessage());
         return result;
