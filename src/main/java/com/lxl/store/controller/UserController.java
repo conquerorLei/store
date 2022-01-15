@@ -2,10 +2,13 @@ package com.lxl.store.controller;
 
 import com.lxl.store.entity.User;
 import com.lxl.store.service.IUserService;
+import com.lxl.store.util.FileUpload;
 import com.lxl.store.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 
@@ -68,5 +71,22 @@ public class UserController extends BaseController{
         String username = getUsernameFromSession(session);
         userService.changeInfo(uid, username, user);
         return new JsonResult<>(OK, "修改成功");
+    }
+
+    /**
+     * @author LiXianLei
+     * @describtion 对文件进行上传并返回文件在服务器存储的路径
+     * @return {@link JsonResult<String>} 返回的数据应该包含上传文件的路径
+     * @param session HttpSession
+     * @param file 上传的文件类型
+     * @time 2022/1/15 11:14
+     **/
+    @RequestMapping("change_avatar")
+    public JsonResult<String> changeAvatar(HttpSession session, @RequestParam("file") MultipartFile file){
+        Integer uid = getUidFromSession(session);
+        String username = getUsernameFromSession(session);
+        String avatar = FileUpload.getInstance().fileUpload(session, file);
+        userService.changeAvatar(uid, username, avatar);
+        return new JsonResult<>(OK, "头像修改成功", avatar);
     }
 }
