@@ -73,6 +73,9 @@ public class UserController extends BaseController{
         return new JsonResult<>(OK, "修改成功");
     }
 
+
+    @Autowired
+    FileUpload fileUpload;
     /**
      * @author LiXianLei
      * @describtion 对文件进行上传并返回文件在服务器存储的路径
@@ -85,7 +88,7 @@ public class UserController extends BaseController{
     public JsonResult<String> changeAvatar(HttpSession session, @RequestParam("file") MultipartFile file){
         Integer uid = getUidFromSession(session);
         String username = getUsernameFromSession(session);
-        String avatar = FileUpload.getInstance().fileUpload(session, file);
+        String avatar = fileUpload.fileUpload(file);
         userService.changeAvatar(uid, username, avatar);
         return new JsonResult<>(OK, "头像修改成功", avatar);
     }
