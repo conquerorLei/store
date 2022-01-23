@@ -20,8 +20,15 @@ import javax.servlet.http.HttpSession;
 @RestController // RestController = controller + ResponseBody
 @RequestMapping("users")
 public class UserController extends BaseController{
+
+    private final IUserService userService;
+    private final FileUpload fileUpload;
+
     @Autowired
-    private IUserService userService;
+    public UserController(IUserService userService, FileUpload fileUpload){
+        this.userService = userService;
+        this.fileUpload = fileUpload;
+    }
 
     @RequestMapping("register")
     public JsonResult<Void> register(User user){
@@ -73,9 +80,6 @@ public class UserController extends BaseController{
         return new JsonResult<>(OK, "修改成功");
     }
 
-
-    @Autowired
-    FileUpload fileUpload;
     /**
      * @author LiXianLei
      * @describtion 对文件进行上传并返回文件在服务器存储的路径
