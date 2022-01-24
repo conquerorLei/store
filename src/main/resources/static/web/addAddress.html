@@ -19,10 +19,10 @@
 		<link rel="stylesheet" type="text/css" href="../css/layout.css" />
 		<link rel="stylesheet" type="text/css" href="../css/top.css" />
 		<link rel="stylesheet" type="text/css" href="../css/footer.css" />
-		<!--
+		<!-- 地址信息 -->
 		<script type="text/javascript" src="../js/distpicker.data.js"></script>
 		<script type="text/javascript" src="../js/distpicker.js"></script>
-		-->
+		
 	</head>
 
 	<body>
@@ -289,5 +289,26 @@
 			</div>
 		</footer>
 		<!--页脚结束-->
+
+		<script type="text/javascript">
+			$("#btn-add-new-address").click(function(){
+				$.ajax({
+					url: "/addresses/add_new_address",
+					type: "POST",
+					data: $("#form-add-new-address").serialize(),
+					dataType: "JSON",
+					success: function(json){
+						if(json.state == 200){
+							alert("添加收货地址成功");
+						}else{
+							alert(json.message);
+						}
+					},
+					error: function(xhr){
+						alert("添加收货地址时产生未知的异常" + xhr.status);
+					}
+				});
+			});
+		</script>
 	</body>
 </html>
