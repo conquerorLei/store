@@ -5,6 +5,7 @@ import com.lxl.store.exception.AddressCountLimitException;
 import com.lxl.store.exception.InsertException;
 import com.lxl.store.mapper.AddressMapper;
 import com.lxl.store.service.IAddressService;
+import com.lxl.store.service.IDistrictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.Date;
 @Service
 public class AddressServiceImpl implements IAddressService {
     private AddressMapper addressMapper;
+    private IDistrictService districtService;
 
     @Value("${user.address.max-count}")
     private Integer maxCount;
@@ -25,6 +27,11 @@ public class AddressServiceImpl implements IAddressService {
     @Autowired
     public void setAddressMapper(AddressMapper addressMapper){
         this.addressMapper = addressMapper;
+    }
+
+    @Autowired
+    public void setDistrictService(IDistrictService districtService){
+        this.districtService = districtService;
     }
 
     @Override
@@ -39,6 +46,11 @@ public class AddressServiceImpl implements IAddressService {
         address.setCreatedTime(new Date());
         address.setModifiedUser(username);
         address.setModifiedTime(new Date());
+
+        address.setProvinceName(districtService.getNameByCode(address.getProvinceCode()));
+        address.setCityName(districtService.getNameByCode(address.getCityCode()));
+        address.setAreaName(districtService.getNameByCode(address.getAreaCode()));
+
 
         Integer rows = addressMapper.insert(address);
         if(rows != 1){
