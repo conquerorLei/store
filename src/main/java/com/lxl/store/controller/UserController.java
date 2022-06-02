@@ -96,4 +96,5 @@ public class UserController extends BaseController{
         userService.changeAvatar(uid, username, avatar);
         return new JsonResult<>(OK, "头像修改成功", avatar);
     }
+
 }

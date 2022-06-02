@@ -269,6 +269,32 @@
 			</div>
 		</footer>
 		<!--页脚结束-->
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+				showAddressList();
+			});
+
+			function showAddressList(){
+				$.ajax({
+					url: "addresses",
+					type: "GET",
+					dataType: "JSON",
+					success: function(json){
+						if(json.state == 200){
+							for(let i = 0; i < json.data.length; i++){
+
+							}
+						}else{
+							alert("用户收货地址加载失败");
+						}
+					},
+					error: function(xhr){
+						alert("发生未知错误" + xhr.status);
+					}
+				})
+			}
+		</script>
 	</body>
 
 </html>

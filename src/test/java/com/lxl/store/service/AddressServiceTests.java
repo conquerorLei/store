@@ -28,4 +28,9 @@ public class AddressServiceTests {
         address.setName("女朋友");
         addressService.addNewAddress(2, "tim", address);
     }
+
+    @Test
+    public void getByUid(){
+        (addressService.getByUid(6)).forEach(System.out::println);
+    }
 }

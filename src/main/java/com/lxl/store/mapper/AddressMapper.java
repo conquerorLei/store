@@ -3,6 +3,8 @@ package com.lxl.store.mapper;
 import com.lxl.store.entity.Address;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface AddressMapper {
 
@@ -23,4 +25,13 @@ public interface AddressMapper {
      * @time 2022/1/24 16:17
      **/
     Integer countByUid(Integer uid);
+
+    /**
+     * @author LiXianLei
+     * @describtion 根据用户id查询用户地址数据
+     * @return {@link List<Address>}
+     * @param uid 用户id
+     * @time 2022/1/31 9:27
+     **/
+    List<Address> findByUid(Integer uid);
 }

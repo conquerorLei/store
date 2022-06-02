@@ -2,6 +2,8 @@ package com.lxl.store.service;
 
 import com.lxl.store.entity.Address;
 
+import java.util.List;
+
 /**
  * 地址服务层
  * @author LiXianLei
@@ -16,4 +18,13 @@ public interface IAddressService {
      * @time 2022/1/24 17:20
      **/
     void addNewAddress(Integer uid, String username, Address address);
+
+    /**
+     * @author LiXianLei
+     * @describtion 获取指定用户的地址列表
+     * @return {@link List<Address>} 地址列表
+     * @param uid 用户id
+     * @time 2022/1/31 9:35
+     **/
+    List<Address> getByUid(Integer uid);
 }

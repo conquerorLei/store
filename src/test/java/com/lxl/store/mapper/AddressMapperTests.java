@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 /**
  * @author LiXianLei
  * @time 2022/01/24 16:44
@@ -34,5 +36,11 @@ public class AddressMapperTests {
     public void countByUid(){
         Integer count = addressMapper.countByUid(1);
         System.out.println(count);
+    }
+
+    @Test
+    public void findByUid(){
+        List<Address> res = addressMapper.findByUid(6);
+        res.forEach(System.out::println);
     }
 }

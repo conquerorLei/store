@@ -3,6 +3,8 @@ package com.lxl.store.strategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -13,8 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class ExceptionSettleStrategyFactory {
 
-    @Autowired
-    private final Map<String, ExceptionSettleStrategy> map = new ConcurrentHashMap<>();
+    @Resource
+    private final Map<String, ExceptionSettleStrategy> map = new HashMap<>();
 
     public ExceptionSettleStrategy getSettlementInstance(String name){
         ExceptionSettleStrategy ess = map.get(name);

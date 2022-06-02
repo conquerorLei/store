@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author LiXianLei
@@ -56,5 +58,24 @@ public class AddressServiceImpl implements IAddressService {
         if(rows != 1){
             throw new InsertException("在地址插入的过程中产生了未知的异常");
         }
+    }
+
+    @Override
+    public List<Address> getByUid(Integer uid) {
+        List<Address> temp = addressMapper.findByUid(uid);
+        List<Address> res = new LinkedList<>();
+        for(Address address : temp){
+            Address newAddress = new Address();
+            newAddress.setTag(address.getTag());
+            newAddress.setName(address.getName());
+            newAddress.setProvinceName(address.getProvinceName());
+            newAddress.setCityName(address.getCityName());
+            newAddress.setAreaName(address.getAreaName());
+            newAddress.setAddress(address.getAddress());
+            newAddress.setZip(address.getZip());
+            newAddress.setPhone(address.getPhone());
+            res.add(newAddress);
+        }
+        return res;
     }
 }
