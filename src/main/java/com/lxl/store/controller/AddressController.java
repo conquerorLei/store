@@ -4,6 +4,7 @@ import com.lxl.store.entity.Address;
 import com.lxl.store.service.IAddressService;
 import com.lxl.store.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -37,5 +38,21 @@ public class AddressController extends BaseController{
         Integer uid = getUidFromSession(session);
         List<Address> data = addressService.getByUid(uid);
         return new JsonResult<>(OK, "获取地址成功", data);
+    }
+
+    /**
+     * @author LiXianLei
+     * @describtion 使用Restful格式编写请求
+     * @return {@link JsonResult< Void>} JsonResult
+     * @param aid 地址ID
+     * @param session HttpSession
+     * @time 2022/6/2 23:49
+     **/
+    @RequestMapping("set_default_address/{aid}")
+    public JsonResult<Void> setDefaultAddress(@PathVariable("aid") Integer aid, HttpSession session){
+        addressService.setDefault(aid,
+                getUidFromSession(session),
+                getUsernameFromSession(session));
+        return new JsonResult<>(OK, "设置默认地址成功");
     }
 }

@@ -27,4 +27,13 @@ public interface IAddressService {
      * @time 2022/1/31 9:35
      **/
     List<Address> getByUid(Integer uid);
+
+    /**
+     * @author LiXianLei
+     * @describtion 设置默认地址
+     * @param aid 地址ID
+     * @param username 用户名
+     * @time 2022/6/2 22:55
+     **/
+    void setDefault(Integer aid, Integer uid, String username);
 }

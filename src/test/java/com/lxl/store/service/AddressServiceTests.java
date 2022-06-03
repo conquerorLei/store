@@ -33,4 +33,9 @@ public class AddressServiceTests {
     public void getByUid(){
         (addressService.getByUid(6)).forEach(System.out::println);
     }
+
+    @Test
+    public void setDefaultAddress(){
+        addressService.setDefault(8, 7, "test");
+    }
 }

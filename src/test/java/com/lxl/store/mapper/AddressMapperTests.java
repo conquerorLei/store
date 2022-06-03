@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,5 +43,19 @@ public class AddressMapperTests {
     public void findByUid(){
         List<Address> res = addressMapper.findByUid(6);
         res.forEach(System.out::println);
+    }
+
+    @Test
+    public void updateDefaultToNormal(){
+        Integer success = addressMapper.updateDefaultToNormal(7);
+        if(success == 1) System.out.println("设置非默认成功");
+        else System.out.println("设置非默认失败");
+    }
+
+    @Test
+    public void updateDefaultByAid(){
+        Integer success = addressMapper.updateDefaultByAid(9, "test02", new Date());
+        if (success == 1) System.out.println("设置默认成功");
+        else System.out.println("设置默认失败");
     }
 }

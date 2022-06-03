@@ -3,6 +3,7 @@ package com.lxl.store.service.impl;
 import com.lxl.store.entity.Address;
 import com.lxl.store.exception.AddressCountLimitException;
 import com.lxl.store.exception.InsertException;
+import com.lxl.store.exception.UpdateException;
 import com.lxl.store.mapper.AddressMapper;
 import com.lxl.store.service.IAddressService;
 import com.lxl.store.service.IDistrictService;
@@ -74,8 +75,17 @@ public class AddressServiceImpl implements IAddressService {
             newAddress.setAddress(address.getAddress());
             newAddress.setZip(address.getZip());
             newAddress.setPhone(address.getPhone());
+            newAddress.setAid(address.getAid());
             res.add(newAddress);
         }
         return res;
+    }
+
+    @Override
+    public void setDefault(Integer aid, Integer uid, String username) {
+        Integer makeUnDefault = addressMapper.updateDefaultToNormal(uid);
+        if(makeUnDefault != 1)throw new UpdateException("取消默认地址时产生位置的异常");
+        Integer makeDefault = addressMapper.updateDefaultByAid(aid, username, new Date());
+        if(makeDefault != 1) throw new UpdateException("设置默认地址时产生未知的异常");
     }
 }
