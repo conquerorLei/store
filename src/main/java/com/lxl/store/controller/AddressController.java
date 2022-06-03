@@ -4,10 +4,7 @@ import com.lxl.store.entity.Address;
 import com.lxl.store.service.IAddressService;
 import com.lxl.store.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -54,5 +51,15 @@ public class AddressController extends BaseController{
                 getUidFromSession(session),
                 getUsernameFromSession(session));
         return new JsonResult<>(OK, "设置默认地址成功");
+    }
+
+    @RequestMapping("delete")
+    public JsonResult<Void> deleteAddress(Integer aid, HttpSession session){
+        addressService.deleteDefault(
+                aid,
+                getUidFromSession(session),
+                getUsernameFromSession(session)
+        );
+        return new JsonResult<>(OK, "删除地址成功");
     }
 }

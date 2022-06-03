@@ -58,4 +58,17 @@ public class AddressMapperTests {
         if (success == 1) System.out.println("设置默认成功");
         else System.out.println("设置默认失败");
     }
+
+    @Test
+    public void deleteByAid(){
+        Integer success = addressMapper.deleteByAid(1);
+        if(success == 1) System.out.println("删除成功");
+        else System.out.println("删除失败");
+    }
+
+    @Test
+    public void findLastModified(){
+        Address address = addressMapper.findLastModified(7);
+        System.out.println(address);
+    }
 }

@@ -1,9 +1,7 @@
 package com.lxl.store.service.impl;
 
 import com.lxl.store.entity.Address;
-import com.lxl.store.exception.AddressCountLimitException;
-import com.lxl.store.exception.InsertException;
-import com.lxl.store.exception.UpdateException;
+import com.lxl.store.exception.*;
 import com.lxl.store.mapper.AddressMapper;
 import com.lxl.store.service.IAddressService;
 import com.lxl.store.service.IDistrictService;
@@ -83,9 +81,23 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public void setDefault(Integer aid, Integer uid, String username) {
+        Address exist = addressMapper.findByAid(aid);
+        if(exist == null)throw new AddressNotFoundException("地址不存在");
         Integer makeUnDefault = addressMapper.updateDefaultToNormal(uid);
-        if(makeUnDefault != 1)throw new UpdateException("取消默认地址时产生位置的异常");
+        if(makeUnDefault != 1)throw new UpdateException("取消默认地址时产生未知的异常");
         Integer makeDefault = addressMapper.updateDefaultByAid(aid, username, new Date());
         if(makeDefault != 1) throw new UpdateException("设置默认地址时产生未知的异常");
+    }
+
+    @Override
+    public void deleteDefault(Integer aid, Integer uid, String username) {
+        Address exist = addressMapper.findByAid(aid);
+        if(exist == null)throw new AddressNotFoundException("地址不存在");
+        Integer deleteSuccess = addressMapper.deleteByAid(aid);
+        if(deleteSuccess != 1)throw new DeleteException("删除地址数据库操作过程中出现异常");
+        if(exist.getIsDefault() == 1){
+            Address lastModified = addressMapper.findLastModified(uid);
+            if(lastModified != null)addressMapper.updateDefaultByAid(lastModified.getAid(), username, new Date());
+        }
     }
 }

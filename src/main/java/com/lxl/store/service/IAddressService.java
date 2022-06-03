@@ -36,4 +36,14 @@ public interface IAddressService {
      * @time 2022/6/2 22:55
      **/
     void setDefault(Integer aid, Integer uid, String username);
+
+    /**
+     * @author LiXianLei
+     * @describtion 删除地址
+     * @param aid 地址ID
+     * @param uid 用户ID
+     * @param username 用户名
+     * @time 2022/6/4 0:31
+     **/
+    void deleteDefault(Integer aid, Integer uid, String username);
 }

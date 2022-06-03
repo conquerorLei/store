@@ -55,4 +55,31 @@ public interface AddressMapper {
      * @time 2022/6/2 22:49
      **/
     Integer updateDefaultByAid(Integer aid, String modifiedUser, Date modifiedTime);
+
+    /**
+     * @author LiXianLei
+     * @describtion 删除收货地址
+     * @return {@link Integer} 影响的行数
+     * @param aid 地址ID
+     * @time 2022/6/4 0:10
+     **/
+    Integer deleteByAid(Integer aid);
+
+    /**
+     * @author LiXianLei
+     * @describtion 返回当前用户最后修改的地址
+     * @return {@link Address} 地址
+     * @param uid 用户ID
+     * @time 2022/6/4 0:20
+     **/
+    Address findLastModified(Integer uid);
+
+    /**
+     * @author LiXianLei
+     * @describtion 获取地址ID对应的地址实体
+     * @return {@link Address} 地址
+     * @param aid 地址ID
+     * @time 2022/6/4 0:37
+     **/
+    Address findByAid(Integer aid);
 }
