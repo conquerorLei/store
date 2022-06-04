@@ -295,7 +295,47 @@
 			</div>
 		</footer>
 		<!--页脚结束-->
-	
+		<script>
+			let url = window.location.search;
+
+			let id = -1;
+
+			if(url.indexOf('?') !== -1){
+				id = url.substring(url.indexOf('=') + 1);
+			}
+
+			$(document).ready(() => showProductDetail());
+
+			const showProductDetail = () => $.ajax({
+				url: "/products/get_product_by_id",
+				type: "GET",
+				dataType: "JSON",
+				data: {id},
+				success: response => {
+					if(response.state === 200){
+						let product = response.data;
+						$("#product-image-1-big").attr("src", ".." + product.image + "1_big.png");
+						$("#product-image-2-big").attr("src", ".." + product.image + "2_big.png");
+						$("#product-image-3-big").attr("src", ".." + product.image + "3_big.png");
+						$("#product-image-4-big").attr("src", ".." + product.image + "4_big.png");
+						$("#product-image-5-big").attr("src", ".." + product.image + "5_big.png");
+
+						$("#product-image-1").attr("src", ".." + product.image + "1.jpg");
+						$("#product-image-2").attr("src", ".." + product.image + "2.jpg");
+						$("#product-image-3").attr("src", ".." + product.image + "3.jpg");
+						$("#product-image-4").attr("src", ".." + product.image + "4.jpg");
+						$("#product-image-5").attr("src", ".." + product.image + "5.jpg");
+
+						$("#product-title").text(product.title);
+						$("#product-sell-point").text(product.sellPoint);
+						$("#product-price").text(product.price);
+					}else{
+						alert(response.message);
+					}
+				},
+				error: xhr => alert("请求时产生未知异常" + xhr.status)
+			});
+		</script>
 	</body>
 
 </html>

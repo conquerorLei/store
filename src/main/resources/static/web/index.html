@@ -299,7 +299,7 @@
 			function showHotList() {
 				$("#hot-list").empty();
 				$.ajax({
-					url: "/products/hot_list",
+					url: "/products/get_hot_products",
 					type: "GET",
 					dataType: "JSON",
 					success: function(json) {

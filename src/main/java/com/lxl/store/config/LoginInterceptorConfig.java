@@ -19,8 +19,7 @@ public class LoginInterceptorConfig implements WebMvcConfigurer {
     /**
      * @author LiXianLei
      * @describtion 配置拦截器
-     * @return
-     * @param registry
+     * @param registry 拦截器注册器
      * @time 2022/1/13 20:20
      **/
     @Override
@@ -39,6 +38,8 @@ public class LoginInterceptorConfig implements WebMvcConfigurer {
         patterns.add("/users/register");
         patterns.add("/users/login");
         patterns.add("/districts/**");
+        patterns.add("/addresses/**");
+        patterns.add("/products/**");
 
         // 注册拦截器
         registry.addInterceptor(interceptor)
